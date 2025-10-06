@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Event Form Kiosk</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="formFrame" src="https://docs.google.com/forms/d/e/1FAIpQLSdp7ymvIlpoTg24qCs-AF2sXYjLOW9O6TWz9HCvCYrsRGdLSA/viewform?embedded=true"></iframe>
+
+  <script>
+    const iframe = document.getElementById('formFrame');
+    const observer = new MutationObserver(() => {
+      try {
+        const doc = iframe.contentDocument || iframe.contentWindow.document;
+        if (doc.body.innerText.includes("Thanks for responding")) {
+          setTimeout(() => {
+            iframe.src = iframe.src; // reload the form
+          }, 5000); // wait 5 seconds before refresh
+        }
+      } catch (e) {
+        // Cross-origin iframe — can't inspect content
+        // Use a fallback timer if needed
+      }
+    });
+
+    observer.observe(iframe, { attributes: true, childList: true, subtree: true });
+  </script>
+</body>
+</html>
