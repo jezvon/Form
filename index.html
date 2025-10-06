@@ -24,7 +24,7 @@
     const observer = new MutationObserver(() => {
       try {
         const doc = iframe.contentDocument || iframe.contentWindow.document;
-        if (doc.body.innerText.includes("Thanks for responding")) {
+        if (doc.body.innerText.includes("Thanks for submitting")) {
           setTimeout(() => {
             iframe.src = iframe.src; // reload the form
           }, 5000); // wait 5 seconds before refresh
